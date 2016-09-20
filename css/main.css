@@ -1,0 +1,57 @@
+#screen{
+  height:550px;
+  width:550px;
+  background-image: url('../images/grid.png');
+  background-size:250%;
+  background-position-x: 231px;
+  background-position-y: 246px;
+  background-repeat: no-repeat;
+  border: thin solid black;
+}
+
+#character{
+  height:50px;
+  width:50px;
+  top:250px;
+  left: 250px;
+  background-image: url('../images/up.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  position:absolute;
+}
+
+.menu{
+  width: 200px;
+  border: thick solid;
+  position: relative;
+  left: 350px;
+  border-radius: 5px;
+  padding:20px;
+}
+
+.menuItem{
+  list-style-type: none;
+  font-family:ArcadeClassic;
+  font-size: 22;
+}
+
+.menuList{
+  margin:0px;
+  padding-left:20px;
+}
+
+.selector{
+  border: thin solid;
+  width: 150px;
+  height: 30px;
+  position: absolute;
+  left:10px;
+  top: 20px;
+  border-radius: 5px;
+  background-color: rgba(102, 204, 255,.2);
+}
+
+@font-face{
+  font-family:ArcadeClassic;
+  src: url("../fonts/ARCADECLASSIC.TTF");
+}
