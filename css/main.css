@@ -7,6 +7,7 @@
   background-position-y: 246px;
   background-repeat: no-repeat;
   border: thin solid black;
+  z-index:0;
 }
 
 #character{
@@ -49,6 +50,42 @@
   top: 20px;
   border-radius: 5px;
   background-color: rgba(102, 204, 255,.2);
+}
+
+#intro{
+  background: url("../images/splash.jpg");
+  background-size:cover;
+  position: absolute;
+  z-index: 1;
+  width: 550px;
+  height: 550px;
+}
+
+#logo{
+  background: url("../images/logo.gif");
+  background-size:cover;
+  position: absolute;
+  z-index: 2;
+  width: 500px;
+  height: 200px;
+  transform: rotate(-20deg);
+  left: -80px;
+  top: -30px;
+}
+
+#status{
+  align-content: center;
+  position: absolute;
+  z-index: 1;
+  left: 35px;
+  top: 300px;
+  font-family: ArcadeClassic;
+  font-size: x-large;
+}
+
+.pikachu{
+  width:225px;
+  height:100px;
 }
 
 @font-face{

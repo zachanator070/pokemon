@@ -51,6 +51,7 @@ var menuzDown = function(){
 var menuxDown = function(){
   $('#menu').remove();
   $('selector').remove();
+  menuIndex = 0;
   switchToWorldControls();
 };
 
