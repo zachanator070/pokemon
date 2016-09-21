@@ -100,6 +100,8 @@ function pressStart(){
   $("#loadingImage").remove();
   $("#loadingText").text("Press 'Z' to start");
   zdown = function(){
+    var audio = new Audio('sounds/beep.mp3');
+    audio.play();
     console.log('moving to world...');
     $('#intro').fadeOut(400,function(){
         $('#intro').remove();
@@ -150,8 +152,14 @@ function loadPokedexData(pokemon){
 
 // whend the document is ready to go
 $(function() {
+
   focusScreen();
+
   console.log( "ready!" );
+
+  var audio = new Audio('sounds/opening.mp3');
+  audio.play();
+
   $("#screen").keydown( function(event) {
 
     var key = event.which;

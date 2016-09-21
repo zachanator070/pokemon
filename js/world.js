@@ -17,6 +17,8 @@ var worldMoveDelta = 55;
 var intervalId;
 
 var keyDown = false;
+var lastFacing = 'down';
+var nextDirection = null;
 
 // array of divs in the screen that need to be moved each key press
 var visibleObjects = [];
@@ -57,18 +59,32 @@ var moveworldright = function(){
     console.log('moving right :'+leftOffSet+ " : "+topOffSet);
 
     moving = true;
-
+    $('#character').css({
+      "background-image":"url('images/walking\ right.png')"
+    });
     $( "#screen" ).animate({
       "backgroundPositionX" : leftOffSet,
       "backgroundPositionY" : topOffSet
     }, transitionTime, 'linear',function() {
       moving = false;
+      $('#character').css({
+        "background-image":"url('images/right.png')"
+      });
+      if(nextDirection != null){
+        nextDirection();
+      }
     });
+
   }
   else{
-    //play some thud sound
+    $('#character').css({
+      "background-image":"url('images/right.png')"
+    });
+    var audio = new Audio('sounds/thud.mp3');
+    audio.play();
   }
 
+  lastFacing = 'right';
 
 };
 
@@ -83,13 +99,31 @@ var moveworldleft = function(){
 
     moving = true;
 
+    $('#character').css({
+      "background-image":"url('images/walking\ left.png')"
+    });
     $( "#screen" ).animate({
       "backgroundPositionX" : leftOffSet,
       "backgroundPositionY" : topOffSet
     }, transitionTime,'linear' , function() {
+      $('#character').css({
+        "background-image":"url('images/left.png')"
+      });
       moving = false;
+      if(nextDirection != null){
+        nextDirection();
+      }
     });
+
   }
+  else{
+    $('#character').css({
+      "background-image":"url('images/left.png')"
+    });
+    var audio = new Audio('sounds/thud.mp3');
+    audio.play();
+  }
+  lastFacing = 'left';
 };
 
 var moveworldup = function(){
@@ -103,14 +137,32 @@ var moveworldup = function(){
     console.log('moving up :'+leftOffSet+ " : "+topOffSet);
 
     moving = true;
-
+    $('#character').css({
+      "background-image":"url('images/walking\ up.png')"
+    });
     $( "#screen" ).animate({
       "backgroundPositionX" : leftOffSet,
       "backgroundPositionY" : topOffSet
     }, transitionTime, 'linear',function() {
       moving = false;
+      $('#character').css({
+        "background-image":"url('images/up.png')"
+      });
+      if(nextDirection != null){
+        nextDirection();
+      }
     });
+
+
   }
+  else{
+    $('#character').css({
+      "background-image":"url('images/up.png')"
+    });
+    var audio = new Audio('sounds/thud.mp3');
+    audio.play();
+  }
+  lastFacing = 'up';
 };
 
 var moveworlddown = function(){
@@ -123,14 +175,32 @@ var moveworlddown = function(){
     console.log('moving down :'+leftOffSet+ " : "+topOffSet);
 
     moving = true;
-
+    $('#character').css({
+      "background-image":"url('images/walking\ down.png')"
+    });
     $( "#screen" ).animate({
       "backgroundPositionX" : leftOffSet,
       "backgroundPositionY" : topOffSet
     }, transitionTime, 'linear',function() {
       moving = false;
+      $('#character').css({
+        "background-image":"url('images/down.png')"
+      });
+      if(nextDirection != null){
+        nextDirection();
+      }
     });
+
   }
+  else{
+    $('#character').css({
+      "background-image":"url('images/down.png')"
+    });
+    var audio = new Audio('sounds/thud.mp3');
+    audio.play();
+  }
+
+  lastFacing = 'down';
 };
 
 // animation functions
@@ -196,6 +266,34 @@ var worldDownKeyDown = function(){
 
 var worldzDown = function(){
 
+  if(!moving){
+    var objectx = xpos;
+    var objecty = ypos;
+
+    if(lastFacing == 'up'){
+      objecty--;
+    }
+    else if(lastFacing == 'down'){
+      objecty++;
+    }
+    else if(lastFacing == 'left'){
+      objectx--;
+    }
+    else if(lastFacing == 'right'){
+      objectx++;
+    }
+
+    var objectPos = xpos+","+ypos;
+
+    if(world.hasOwnProperty(objectPos)){
+      world[objectPos].use();
+      var audio = new Audio('sounds/beep.mp3');
+      audio.play();
+    }
+
+  }
+
+
 };
 
 var worldxDown = function(){
@@ -212,7 +310,6 @@ var worldEnterDown = function(){
 var worldRightKeyUp = function(){
 
   keyDown = false;
-
   clearInterval(intervalId);
 
   // set our character icon to facing right
