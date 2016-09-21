@@ -92,3 +92,16 @@
   font-family:ArcadeClassic;
   src: url("../fonts/ARCADECLASSIC.TTF");
 }
+
+#chat{
+  top: 450px;
+  position: relative;
+  width: 550px;
+  height: 100px;
+  background-color: white;
+  font-family: ArcadeClassic;
+  font-size: 19px;
+  padding: 30px;
+  border: thick solid black;
+  border-radius: 10px;
+}

@@ -24,9 +24,9 @@ var nextDirection = null;
 var visibleObjects = [];
 
 var world = {
-  "2,0":{
-    name: 'tree'
-  },
+  // "2,0":{
+  //   name: 'tree'
+  // },
   "2,1":{
     name: 'tree'
   },
@@ -42,8 +42,9 @@ var world = {
   "1,1":{
     name: 'character',
     image: 'images/oak.png',
-    onz: function(){
-      console.log('person was called');
+    use: function(){
+      var chat = ['Why you must want to battle some pokemon yes?','Here have one of mine!'];
+      switchToChatControls(chat,switchToWorldControls);
     }
   }
 };
@@ -67,11 +68,14 @@ var moveworldright = function(){
       "backgroundPositionY" : topOffSet
     }, transitionTime, 'linear',function() {
       moving = false;
-      $('#character').css({
-        "background-image":"url('images/right.png')"
-      });
+
       if(nextDirection != null){
         nextDirection();
+      }
+      else{
+        $('#character').css({
+          "background-image":"url('images/right.png')"
+        });
       }
     });
 
@@ -106,12 +110,16 @@ var moveworldleft = function(){
       "backgroundPositionX" : leftOffSet,
       "backgroundPositionY" : topOffSet
     }, transitionTime,'linear' , function() {
-      $('#character').css({
-        "background-image":"url('images/left.png')"
-      });
+
       moving = false;
+
       if(nextDirection != null){
         nextDirection();
+      }
+      else{
+        $('#character').css({
+          "background-image":"url('images/left.png')"
+        });
       }
     });
 
@@ -145,11 +153,14 @@ var moveworldup = function(){
       "backgroundPositionY" : topOffSet
     }, transitionTime, 'linear',function() {
       moving = false;
-      $('#character').css({
-        "background-image":"url('images/up.png')"
-      });
+
       if(nextDirection != null){
         nextDirection();
+      }
+      else{
+        $('#character').css({
+          "background-image":"url('images/up.png')"
+        });
       }
     });
 
@@ -183,11 +194,14 @@ var moveworlddown = function(){
       "backgroundPositionY" : topOffSet
     }, transitionTime, 'linear',function() {
       moving = false;
-      $('#character').css({
-        "background-image":"url('images/down.png')"
-      });
+
       if(nextDirection != null){
         nextDirection();
+      }
+      else{
+        $('#character').css({
+          "background-image":"url('images/down.png')"
+        });
       }
     });
 
@@ -206,61 +220,51 @@ var moveworlddown = function(){
 // animation functions
 var animation = function(){};
 
-var timer = function(){
-
-  intervalId = setInterval(function(){
-      animation();
-  },transitionTime);
-
-};
-
 // key down functions
 var worldRightKeyDown = function(){
 
-  if(!keyDown && !moving){
+  if(!keyDown){
+    if(!moving){
+      moveworldright();
+    }
+
+    nextDirection = moveworldright;
     keyDown = true;
-
-    animation = moveworldright;
-    animation();
-    // make our character have the moving right gif
-    timer();
-
   }
-
 };
 
 var worldLeftKeyDown = function(){
 
-  if(!keyDown && !moving){
+  if(!keyDown){
+    if(!moving){
+      moveworldleft();
+    }
+
+    nextDirection = moveworldleft;
     keyDown = true;
-
-    animation = moveworldleft;
-    animation();
-    // make our character have the moving left gif
-    timer();
-
   }
 };
 
 var worldUpKeyDown = function(){
 
-  if(!keyDown && !moving){
-    keyDown = true;
+  if(!keyDown){
+    if(!moving){
+      moveworldup();
+    }
 
-    animation = moveworldup;
-    animation();
-    // make our character have the moving up gif
-    timer();
+    nextDirection = moveworldup;
+    keyDown = true;
   }
 };
 
 var worldDownKeyDown = function(){
-  if(!keyDown && !moving){
+  if(!keyDown){
+    if(!moving){
+      moveworlddown();
+    }
+
+    nextDirection = moveworlddown;
     keyDown = true;
-    animation = moveworlddown;
-    animation();
-    // make our character have the moving down gif
-    timer();
   }
 };
 
@@ -283,7 +287,7 @@ var worldzDown = function(){
       objectx++;
     }
 
-    var objectPos = xpos+","+ypos;
+    var objectPos = objectx+","+objecty;
 
     if(world.hasOwnProperty(objectPos)){
       world[objectPos].use();
@@ -310,28 +314,28 @@ var worldEnterDown = function(){
 var worldRightKeyUp = function(){
 
   keyDown = false;
-  clearInterval(intervalId);
+  nextDirection = null;
 
   // set our character icon to facing right
 };
 
 var worldLeftKeyUp = function(){
   keyDown = false;
-  clearInterval(intervalId);
+  nextDirection = null;
 
   // set our character icon to facing right
 };
 
 var worldUpKeyUp = function(){
   keyDown = false;
-  clearInterval(intervalId);
+  nextDirection = null;
 
   // set our character icon to facing right
 };
 
 var worldDownKeyUp = function(){
   keyDown = false;
-  clearInterval(intervalId);
+  nextDirection = null;
 
   // set our character icon to facing right
 };
