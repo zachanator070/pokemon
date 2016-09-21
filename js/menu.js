@@ -58,7 +58,9 @@ var menuxDown = function(){
 var switchToMenuControls = function(){
 
   resetBindings();
-  showMenu();
+  if (!jQuery.contains(document, $('#menu')[0])) {
+    showMenu();
+  }
   uparrowdown = menuUpKeyDown;
   downarrowdown = menuDownKeyDown;
   zdown = menuzDown;

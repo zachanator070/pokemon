@@ -111,18 +111,21 @@ function pressStart(){
 
 }
 
-function loadPokedexData(pokemon){
+function loadPokedexData(){
   var urls = [];
   var promises = [];
   var minReq = [];
 
-  for(var i =pokemon.length+1;i<=150;i++){
+  pokemon = {};
+
+  for(var i =1;i<=150;i++){
 
     var promise = $.ajax("http://pokeapi.co/api/v2/pokemon/"+i,{
       success: function(data){
         urls.push(data.sprites.back_default);
         urls.push(data.sprites.front_default);
-        pokemon.push(data);
+        var id = data.id;
+        pokemon[id] = data;
         console.log('Looked up '+data.name);
       },
       error: function(data,code){
@@ -138,7 +141,7 @@ function loadPokedexData(pokemon){
 
   Promise.all(promises).then(function(){
       preloadImages(urls);
-      localStorage.setItem('pokemon',pokemon);
+      localStorage.setItem('pokemon',JSON.stringify(pokemon));
     },
     function(){
       console.log("images didn't load");
@@ -217,16 +220,16 @@ $(function() {
   //////////////////////////////////////////
 
   // load images into browser cache
-  var pokemon = localStorage.getItem("pokemon");
+  var pokemon = JSON.parse(localStorage.getItem("pokemon"));
 
   if(pokemon === null) {
-    pokemon = [];
-    loadPokedexData(pokemon);
+    loadPokedexData();
     $('#loadingImage').append("<img src='images/pikachu.gif' class='pikachu'/>");
     $("#loadingText").text('Loading Pokedex...');
   }
-  else if(pokemon.length < 150){
-    loadPokedexData(pokemon);
+  else if(Object.keys(pokemon).length < 150){
+    //loadPokedexData();
+    console.log(Object.keys(pokemon));
     $('#loadingImage').append("<img src='images/pikachu.gif' class='pikachu'/>");
     $("#loadingText").text('Loading Pokedex...');
   }

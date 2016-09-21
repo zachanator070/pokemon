@@ -6,11 +6,14 @@ var pokedexYpos = 20;
 
 var pokedexTransitionTime = 50;
 
-var showMenu = function(){
-  var menuString = "<div id='pokedex' class='pokedex'><ul class='pokedexList'>";
-  localStorage.getItem('pokemon').forEach(function(item){
-    menuString += "<li class='pokedexitem'>"+item+"</li>";
-  });
+var showPokedex = function(){
+  var menuString = "<div id='pokedex' class='pokedex'>";
+  menuString += "<div id='pokedexPic' class='pokedexPic'></div>";
+  menuString += "<ul class='pokedexList'>";
+  var pokemon = localStorage.getItem('pokemon');
+  for(var i =1;i<=150;i++){
+    menuString += "<li class='pokedexItem'>"+pokemon[i].name + "</li>";
+  }
   menuString += "</ul></div>";
 
   $('#screen').append(menuString);
@@ -20,7 +23,7 @@ var showMenu = function(){
 };
 
 
-var menuUpKeyDown = function(){
+var dexUpKey = function(){
 
   if(pokedexIndex > 0){
     console.log('menu going up');
@@ -32,7 +35,7 @@ var menuUpKeyDown = function(){
   }
 };
 
-var menuDownKeyDown = function(){
+var dexDownKey = function(){
   if(pokedexIndex <menuItems.length-1){
     console.log('menu going down');
     pokedexIndex++;
@@ -51,7 +54,7 @@ var menuxDown = function(){
   $('#menu').remove();
   $('selector').remove();
   pokedexIndex = 0;
-  switchToWorldControls();
+  switchToMenuControls();
 };
 
 var switchToMenuControls = function(){
