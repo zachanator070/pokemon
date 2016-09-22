@@ -204,7 +204,7 @@ function loadMoves(){
             newMove.name = data.name;
             newMove.power = data.power;
             newMove.accuracy = data.accuracy;
-            if('damage_class' in data){
+            if('damage_class' in Object.keys(data)){
               newMove.class = data.damage_class.name;
             }
             newMove.type = data.type.name;
