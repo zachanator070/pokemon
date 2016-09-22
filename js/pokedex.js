@@ -1,68 +1,124 @@
 
-var pokedexIndex = 0;
+var pokedexIndex = 1;
 
-var pokedexHeight = 30;
-var pokedexYpos = 20;
+var pokedexHeight = 31;
+var pokedexYpos = 155;
 
 var pokedexTransitionTime = 50;
 
+var cursorPos = 0;
+
+var pokedexInfo = [];
+
+var pokedexPokemon = {};
+
+var showPokemon = function(id){
+  $("#pokedexPic").css({'background-image': 'url(' +  pokedexPokemon[id].sprites.front_default+ ')'});
+}
+
+var setPokedexInfo = function(){
+
+  $("#pokedexList").remove();
+
+  var pokedexString = "<ul id='pokedexList'>";
+
+  pokedexInfo.forEach(function(item){
+    pokedexString += "<li>" + item + "</li>";
+  });
+
+  pokedexString += "</ul>";
+
+  $("#pokedexright").append(pokedexString);
+
+};
+
 var showPokedex = function(){
-  var menuString = "<div id='pokedex' class='pokedex'>";
-  menuString += "<div id='pokedexPic' class='pokedexPic'></div>";
-  menuString += "<ul class='pokedexList'>";
-  var pokemon = localStorage.getItem('pokemon');
-  for(var i =1;i<=150;i++){
-    menuString += "<li class='pokedexItem'>"+pokemon[i].name + "</li>";
+  var pokedexString = "<div id='pokedex'></div>";
+  var pokedexLeft = "<div id='pokedexleft'></div>";
+  var pokedexRight = "<div id='pokedexright'></div>";
+  pokedexPokemon = JSON.parse(localStorage.getItem('pokemon'));
+  for(var i =1;i<=10;i++){
+    pokedexInfo.push(pokedexPokemon[i].name);
   }
-  menuString += "</ul></div>";
 
-  $('#screen').append(menuString);
+  $('#screen').append(pokedexString);
 
-  var selectorString = "<div id='pokedexselector' class='pokedexselector'></div>";
-  $('#pokedex').append(selectorString);
+  $('#pokedex').append(pokedexLeft);
+  $('#pokedexleft').append("<div id='pokedexPic'></div>");
+
+  $('#pokedex').append(pokedexRight);
+  $('#pokedexright').append("<div id='pokedexselector'></div>");
+  showPokemon(1);
+  setPokedexInfo();
 };
 
 
 var dexUpKey = function(){
 
-  if(pokedexIndex > 0){
-    console.log('menu going up');
-    pokedexIndex--;
-    selectorYpos -= pokedexHeight;
-    $('#selector').animate({
-      top : "-=30"
-    }, pokedexTransitionTime,'linear');
+  if(pokedexIndex >0){
+    if(cursorPos > 0){
+      $('#pokedexselector').animate({
+        top : "-="+pokedexHeight
+      }, menuTransitionTime, 'linear');
+      cursorPos--;
+      pokedexIndex--;
+      showPokemon(pokedexIndex);
+    }
+    else{
+      pokedexInfo.splice(9,1);
+      pokedexIndex--;
+      pokedexInfo.splice(0,0,pokedexPokemon[pokedexIndex].name);
+      setPokedexInfo();
+      showPokemon(pokedexIndex);
+    }
+  }
+  else{
+    //play thud sound
   }
 };
 
 var dexDownKey = function(){
-  if(pokedexIndex <menuItems.length-1){
-    console.log('menu going down');
-    pokedexIndex++;
-    selectorYpos += pokedexHeight;
-    $('#selector').animate({
-      top : "+=30"
-    }, pokedexTransitionTime, 'linear');
+  if(pokedexIndex <150){
+    if(cursorPos< 9){
+      $('#pokedexselector').animate({
+        top : "+="+pokedexHeight
+      }, menuTransitionTime, 'linear');
+      cursorPos++;
+      pokedexIndex++;
+      showPokemon(pokedexIndex);
+    }
+    else{
+      pokedexInfo.splice(0,1);
+      pokedexIndex++;
+      pokedexInfo.push(pokedexPokemon[pokedexIndex].name);
+      setPokedexInfo();
+      showPokemon(pokedexIndex);
+    }
+  }
+  else{
+    //play thud sound
   }
 };
 
-var menuzDown = function(){
+var dexzDown = function(){
 
 };
 
-var menuxDown = function(){
-  $('#menu').remove();
+var dexxDown = function(){
+  $('#pokedex').remove();
   $('selector').remove();
-  pokedexIndex = 0;
+  pokedexInfo = [];
+  pokedexIndex = 1;
+  cursorPos = 0;
   switchToMenuControls();
 };
 
-var switchToMenuControls = function(){
+var switchToPokedexControls = function(){
 
   resetBindings();
-  showMenu();
-  uparrowdown = menuUpKeyDown;
-  downarrowdown = menuDownKeyDown;
-  zdown = menuzDown;
-  xdown = menuxDown;
+  showPokedex();
+  uparrowdown = dexUpKey;
+  downarrowdown = dexDownKey;
+  zdown = dexzDown;
+  xdown = dexxDown;
 }

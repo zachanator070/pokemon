@@ -1,5 +1,5 @@
 
-var menuItems = ['Pokedex','Pokemon'];
+var menuItems = ['Bulbasaur','Charmander',''];
 var menuIndex = 0;
 
 var menuItemHeight = 30;
@@ -7,10 +7,10 @@ var selectorYpos = 20;
 
 var menuTransitionTime = 50;
 
-var showMenu = function(){
-  var menuString = "<div id='menu' class='menu'><ul class='menuList'>";
+var showPicker = function(){
+  var menuString = "<div id='picker'><ul class='pickerList'>";
   menuItems.forEach(function(item){
-    menuString += "<li class='menuitem'>"+item+"</li>";
+    menuString += "<li>"+item+"</li>";
   });
   menuString += "</ul></div>";
 
@@ -21,19 +21,12 @@ var showMenu = function(){
 };
 
 
-var menuUpKeyDown = function(){
+var pickerUpKey = function(){
 
-  if(menuIndex > 0){
-    console.log('menu going up');
-    menuIndex--;
-    selectorYpos -= menuItemHeight;
-    $('#selector').animate({
-      top : "-=30"
-    }, menuTransitionTime,'linear');
-  }
+
 };
 
-var menuDownKeyDown = function(){
+var pickerDownKey = function(){
   if(menuIndex <menuItems.length-1){
     console.log('menu going down');
     menuIndex++;
@@ -45,9 +38,7 @@ var menuDownKeyDown = function(){
 };
 
 var menuzDown = function(){
-  if(menuIndex == 0){
-    switchToPokedexControls();
-  }
+
 };
 
 var menuxDown = function(){
@@ -60,9 +51,7 @@ var menuxDown = function(){
 var switchToMenuControls = function(){
 
   resetBindings();
-  if (!jQuery.contains(document, $('#menu')[0])) {
-    showMenu();
-  }
+  showMenu();
   uparrowdown = menuUpKeyDown;
   downarrowdown = menuDownKeyDown;
   zdown = menuzDown;

@@ -125,7 +125,12 @@ function loadPokedexData(){
         urls.push(data.sprites.back_default);
         urls.push(data.sprites.front_default);
         var id = data.id;
-        pokemon[id] = data;
+        var some = {};
+        some.name = data.name;
+        some.id = data.id;
+        some.types = data.types;
+        some.sprites = data.sprites;
+        pokemon[id] = some;
         console.log('Looked up '+data.name);
       },
       error: function(data,code){
@@ -234,12 +239,10 @@ $(function() {
     $("#loadingText").text('Loading Pokedex...');
   }
   else{
-    console.log('pokedex already loaded');
     pressStart();
   }
 
   $("#loadingText").blink({delay:800});
-
 
   // disable window controls
   window.onkeydown = function(e) {
