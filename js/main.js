@@ -25,6 +25,10 @@ var xdown ;
 
 var enterdown ;
 
+var pokemon = {};
+var moves = {};
+var party = [];
+
 var resetBindings = function(){
   leftarrowdown = function() {
     console.log('leftarrow');
@@ -130,6 +134,33 @@ function loadPokedexData(){
         some.id = data.id;
         some.types = data.types;
         some.sprites = data.sprites;
+        some.stats = data.stats;
+        some.exp = data.base_experience;
+        var moves = [];
+        // parsing out the moves
+        data.moves.forEach(function(group){
+          var move = {};
+          var using = false;
+          move.name = group.move.name;
+          move.url = move.url;
+          group.version_group_details.forEach(function(detail){
+            if(detail.version_group.name == 'firered-leafgreen'){
+              using = true;
+              move.level = detail.level_learned_at;
+            }
+          });
+          if(using){
+            moves.push(move);
+          }
+        });
+        some.moves = moves;
+        some.types = [];
+        data.types.forEach(function(slot){
+          some.types.push(slot.name);
+        });
+        some.height = data.height;
+        some.weight = some.weight;
+
         pokemon[id] = some;
         console.log('Looked up '+data.name);
       },
@@ -146,6 +177,7 @@ function loadPokedexData(){
 
   Promise.all(promises).then(function(){
       preloadImages(urls);
+      loadMoves();
       localStorage.setItem('pokemon',JSON.stringify(pokemon));
     },
     function(){
@@ -158,7 +190,40 @@ function loadPokedexData(){
   });
 }
 
-// whend the document is ready to go
+function loadMoves(){
+  var movePromises = [];
+  for(var i =1; i<=150;i++){
+    pokemon[i].moves.forEach(function(move){
+      if(!(move.name in moves)){
+        moves[move.name] = {};
+        var movePromise = $.ajax(move.url,{
+          success: function(data){
+            var newMove = {};
+            newMove.pp = data.pp;
+            newMove.name = data.name;
+            newMove.power = data.power;
+            newMove.accuracy = data.accuracy;
+            newMove.class = data.damage_class.name;
+            newMove.type = data.type.name;
+            moves[move.name] = newMove;
+            console.log('loaded '+move.name)
+          },
+          error: function(data){
+            console.log('unable to load '+move.name)
+          }
+        });
+
+        movePromises.push(movePromise);
+      }
+    });
+  }
+
+  Promise.all(movePromises).then(function(){
+    localStorage.set('moves',JSON.stringify(moves));
+  });
+}
+
+// when the document is ready to go
 $(function() {
 
   focusScreen();
