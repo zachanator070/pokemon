@@ -36,10 +36,6 @@ var showPokedex = function(){
   var pokedexString = "<div id='pokedex'></div>";
   var pokedexLeft = "<div id='pokedexleft'></div>";
   var pokedexRight = "<div id='pokedexright'></div>";
-  pokedexPokemon = JSON.parse(localStorage.getItem('pokemon'));
-  for(var i =1;i<=10;i++){
-    pokedexInfo.push(pokedexPokemon[i].name);
-  }
 
   $('#screen').append(pokedexString);
 
@@ -47,9 +43,21 @@ var showPokedex = function(){
   $('#pokedexleft').append("<div id='pokedexPic'></div>");
 
   $('#pokedex').append(pokedexRight);
-  $('#pokedexright').append("<div id='pokedexselector'></div>");
-  showPokemon(1);
-  setPokedexInfo();
+  if(Object.keys(pokemon).length == 150){
+
+    for(var i =1;i<=10;i++){
+      pokedexInfo.push(pokedexPokemon[i].name);
+    }
+
+    $('#pokedexright').append("<div id='pokedexselector'></div>");
+    $('#pokedexPic').text('');
+    showPokemon(1);
+    setPokedexInfo();
+  }
+  else{
+    $('#pokedexPic').text('Pokedex still loading, try again later');
+  }
+
 };
 
 

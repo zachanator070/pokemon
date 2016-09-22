@@ -192,6 +192,7 @@ function loadPokedexData(){
 
 function loadMoves(){
   var movePromises = [];
+  moves = [];
   for(var i =1; i<=150;i++){
     pokemon[i].moves.forEach(function(move){
       if(!(move.name in moves)){
@@ -203,7 +204,9 @@ function loadMoves(){
             newMove.name = data.name;
             newMove.power = data.power;
             newMove.accuracy = data.accuracy;
-            newMove.class = data.damage_class.name;
+            if('damage_class' in data){
+              newMove.class = data.damage_class.name;
+            }
             newMove.type = data.type.name;
             moves[move.name] = newMove;
             console.log('loaded '+move.name)
@@ -290,20 +293,17 @@ $(function() {
   //////////////////////////////////////////
 
   // load images into browser cache
-  var pokemon = JSON.parse(localStorage.getItem("pokemon"));
-
-  if(pokemon === null) {
+  pokemon = JSON.parse(localStorage.getItem("pokemon"));
+  moves = JSON.parse(localStorage.getItem("moves"));
+  if(pokemon === null || Object.keys(pokemon).length < 150) {
     loadPokedexData();
     $('#loadingImage').append("<img src='images/pikachu.gif' class='pikachu'/>");
     $("#loadingText").text('Loading Pokedex...');
   }
-  else if(Object.keys(pokemon).length < 150){
-    //loadPokedexData();
-    console.log(Object.keys(pokemon));
-    $('#loadingImage').append("<img src='images/pikachu.gif' class='pikachu'/>");
-    $("#loadingText").text('Loading Pokedex...');
-  }
   else{
+    if(moves == null){
+      loadMoves();
+    }
     pressStart();
   }
 
