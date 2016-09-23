@@ -142,7 +142,7 @@ function loadPokedexData(){
           var move = {};
           var using = false;
           move.name = group.move.name;
-          move.url = move.url;
+          move.url = group.move.url;
           group.version_group_details.forEach(function(detail){
             if(detail.version_group.name == 'firered-leafgreen'){
               using = true;
@@ -208,9 +208,7 @@ function loadMoves(){
             if('damage_class' in Object.keys(response)){
               newMove.damage_class = response.damage_class.name;
             }
-            if('type' in Object.keys(response)){
-              newMove['type'] = response['type']['name'];
-            }
+            newMove.type = response.type.name;
             moves[move.name] = newMove;
             console.log(response);
             console.log('loaded '+move.name);
