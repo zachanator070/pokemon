@@ -207,12 +207,12 @@ function loadMoves(){
             if('damage_class' in Object.keys(data)){
               newMove.damage_class = data.damage_class.name;
             }
-            if(data.name == 'tackle'){
-              console.log(data);
+            if('type' in Object.keys(data)){
+              newMove['type'] = data['type']['name'];
             }
-            newMove['type'] = data['type']['name'];
             moves[move.name] = newMove;
-            console.log('loaded '+move.name)
+            console.log(data);
+            console.log('loaded '+move.name);
           },
           error: function(data){
             console.log('unable to load '+move.name)
