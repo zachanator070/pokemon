@@ -197,24 +197,25 @@ function loadMoves(){
     pokemon[i].moves.forEach(function(move){
       if(!(move.name in moves)){
         moves[move.name] = {};
+        console.log('fetching '+move.url);
         var movePromise = $.ajax(move.url,{
-          success: function(data){
+          success: function(response){
             var newMove = {};
-            newMove.pp = data.pp;
-            newMove.name = data.name;
-            newMove.power = data.power;
-            newMove.accuracy = data.accuracy;
-            if('damage_class' in Object.keys(data)){
-              newMove.damage_class = data.damage_class.name;
+            newMove.pp = response.pp;
+            newMove.name = response.name;
+            newMove.power = response.power;
+            newMove.accuracy = response.accuracy;
+            if('damage_class' in Object.keys(response)){
+              newMove.damage_class = response.damage_class.name;
             }
-            if('type' in Object.keys(data)){
-              newMove['type'] = data['type']['name'];
+            if('type' in Object.keys(response)){
+              newMove['type'] = response['type']['name'];
             }
             moves[move.name] = newMove;
-            console.log(data);
+            console.log(response);
             console.log('loaded '+move.name);
           },
-          error: function(data){
+          error: function(response){
             console.log('unable to load '+move.name)
           }
         });
