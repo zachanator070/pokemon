@@ -207,7 +207,7 @@ function loadMoves(){
             if('damage_class' in Object.keys(data)){
               newMove.class = data.damage_class.name;
             }
-            newMove.type = data.type.name;
+            newMove['type'] = data['type']['name'];
             moves[move.name] = newMove;
             console.log('loaded '+move.name)
           },
