@@ -1,3 +1,8 @@
+
+body{
+  background-image: url('../images/background.jpg');
+}
+
 #screen{
   height:550px;
   width:550px;
@@ -8,6 +13,7 @@
   background-repeat: no-repeat;
   border: thin solid black;
   z-index:0;
+  background-color: black;
 }
 
 #character{
@@ -19,38 +25,6 @@
   background-size: 100%;
   background-repeat: no-repeat;
   position:absolute;
-}
-
-.menu{
-  width: 200px;
-  border: thick solid;
-  position: relative;
-  left: 350px;
-  border-radius: 5px;
-  padding:20px;
-  background-color: white;
-}
-
-.menuItem{
-  list-style-type: none;
-  font-family:ArcadeClassic;
-  font-size: 22;
-}
-
-.menuList{
-  margin:0px;
-  padding-left:20px;
-}
-
-.selector{
-  border: thin solid;
-  width: 150px;
-  height: 30px;
-  position: absolute;
-  left:10px;
-  top: 20px;
-  border-radius: 5px;
-  background-color: rgba(102, 204, 255,.2);
 }
 
 #intro{
@@ -105,63 +79,4 @@
   padding: 30px;
   border: thick solid black;
   border-radius: 10px;
-}
-
-#pokedexleft{
-  background-image: url(../images/pokedex_left.png);
-  width: 275px;
-  height: 550px;
-  z-index: 3;
-  position: absolute;
-  top: 0px;
-  left: 15px;
-  background-repeat: no-repeat;
-  background-size: 275px 550px;
-  transform: skew(10deg,10deg) rotate(10deg);
-}
-
-#pokedexright{
-  background-image: url(../images/pokedex_right.png);
-  width: 275px;
-  height: 539px;
-  z-index: 3;
-  position: absolute;
-  left: 294px;
-  top: 23px;
-  background-repeat: no-repeat;
-  background-size: 275px 520px;
-  transform: skew(170deg,170deg) rotate(-10deg);
-}
-
-#pokedexList{
-  list-style-image: url('../images/pokeball.png');
-    color: white;
-  font-family: ArcadeClassic;
-  top: 155px;
-  position: relative;
-  font-size: 22px;
-  left: 40px;
-}
-
-#pokedexselector{
-  width: 170px;
-  height: 25px;
-  border: thin solid white;
-  border-radius: 15px;
-  position: absolute;
-  top: 155px;
-  left: 50px;
-  z-index: 3;
-}
-
-#pokedexPic{
-  width: 154px;
-  height: 150px;
-  border: thin solid black;
-  position: relative;
-  top: 170px;
-  left: 50px;
-  background-repeat:no-repeat;
-  background-size: cover;
-  background-siez: 154px 150px;
 }

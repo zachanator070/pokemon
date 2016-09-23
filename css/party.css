@@ -1,0 +1,21 @@
+#party{
+  background-color: white;
+  border: thick solid black;
+  border-radius: 10px;
+  font-family: ArcadeClassic;
+  font-size: 20px;
+  position: absolute;
+  width: 550px;
+  height: 550px;
+  top: 0;
+}
+
+.partyItem{
+  width: 550px;
+}
+
+.partyInfo{
+
+  padding-top: 15px;
+
+}

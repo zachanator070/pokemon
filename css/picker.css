@@ -1,0 +1,40 @@
+
+#pickerPic{
+  width: 200px;
+  height: 200px;
+  background-size: 200px 200px;
+  border: thick solid grey;
+  border-radius: 5px;
+  position: relative;
+  left: 50px;
+  top: 150px;
+}
+
+#picker{
+  width: 550px;
+  height: 550px;
+  background: white;
+  position: relative;
+}
+
+#pickerselector{
+  border: medium solid grey;
+  width: 200px;
+  height: 30px;
+  border-radius: 10px;
+  position: absolute;
+  left: 310px;
+  top: 205px;
+}
+
+#pickerList{
+  margin-top: 0;
+  margin-bottom: 10px;
+  left: 300px;
+  position: relative;
+  font-size: 30;
+  font-family: ArcadeClassic;
+  list-style-image: url(../images/pokeball.png);
+  width: 250px;
+  margin-left: 0px;
+}

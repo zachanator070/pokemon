@@ -170,9 +170,6 @@ function loadPokedexData(){
     });
 
     promises.push(promise);
-    if(i < 9){
-      minReq.push(promise);
-    }
   }
 
   Promise.all(promises).then(function(){
@@ -184,20 +181,15 @@ function loadPokedexData(){
       console.log("images didn't load");
     }
   );
-
-  Promise.all(minReq).then(function(){
-    pressStart();
-  });
 }
 
 function loadMoves(){
   var movePromises = [];
-  moves = [];
+  moves = {};
   for(var i =1; i<=150;i++){
     pokemon[i].moves.forEach(function(move){
       if(!(move.name in moves)){
         moves[move.name] = {};
-        console.log('fetching '+move.url);
         var movePromise = $.ajax(move.url,{
           success: function(response){
             var newMove = {};
@@ -224,8 +216,21 @@ function loadMoves(){
   }
 
   Promise.all(movePromises).then(function(){
-    localStorage.set('moves',JSON.stringify(moves));
+    console.log(moves);
+    localStorage.setItem('moves',JSON.stringify(moves));
+    pressStart();
   });
+}
+
+var worldMusic = null;
+
+function startWorldMusic(){
+  worldMusic = new Audio('sounds/opening.mp3');
+  worldMusic.play();
+  worldMusic.addEventListener('ended', function() {
+    this.currentTime = 0;
+    this.play();
+  }, false);
 }
 
 // when the document is ready to go
@@ -235,8 +240,7 @@ $(function() {
 
   console.log( "ready!" );
 
-  var audio = new Audio('sounds/opening.mp3');
-  audio.play();
+  startWorldMusic();
 
   $("#screen").keydown( function(event) {
 

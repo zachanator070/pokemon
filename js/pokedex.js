@@ -10,10 +10,8 @@ var cursorPos = 0;
 
 var pokedexInfo = [];
 
-var pokedexPokemon = {};
-
 var showPokemon = function(id){
-  $("#pokedexPic").css({'background-image': 'url(' +  pokedexPokemon[id].sprites.front_default+ ')'});
+  $("#pokedexPic").css({'background-image': 'url(' +  pokemon[id].sprites.front_default+ ')'});
 }
 
 var setPokedexInfo = function(){
@@ -46,7 +44,7 @@ var showPokedex = function(){
   if(Object.keys(pokemon).length == 150){
 
     for(var i =1;i<=10;i++){
-      pokedexInfo.push(pokedexPokemon[i].name);
+      pokedexInfo.push(pokemon[i].name);
     }
 
     $('#pokedexright').append("<div id='pokedexselector'></div>");
@@ -75,7 +73,7 @@ var dexUpKey = function(){
     else{
       pokedexInfo.splice(9,1);
       pokedexIndex--;
-      pokedexInfo.splice(0,0,pokedexPokemon[pokedexIndex].name);
+      pokedexInfo.splice(0,0,pokemon[pokedexIndex].name);
       setPokedexInfo();
       showPokemon(pokedexIndex);
     }
@@ -98,7 +96,7 @@ var dexDownKey = function(){
     else{
       pokedexInfo.splice(0,1);
       pokedexIndex++;
-      pokedexInfo.push(pokedexPokemon[pokedexIndex].name);
+      pokedexInfo.push(pokemon[pokedexIndex].name);
       setPokedexInfo();
       showPokemon(pokedexIndex);
     }
@@ -114,7 +112,7 @@ var dexzDown = function(){
 
 var dexxDown = function(){
   $('#pokedex').remove();
-  $('selector').remove();
+  $('#pokedexselector').remove();
   pokedexInfo = [];
   pokedexIndex = 1;
   cursorPos = 0;

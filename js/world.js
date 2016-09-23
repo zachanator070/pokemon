@@ -20,13 +20,24 @@ var keyDown = false;
 var lastFacing = 'down';
 var nextDirection = null;
 
+var doBattle = false;
+
 // array of divs in the screen that need to be moved each key press
 var visibleObjects = [];
 
 var world = {
-  // "2,0":{
-  //   name: 'tree'
-  // },
+  "3,0":{
+    name: 'grass'
+  },
+  "4,0":{
+    name: 'grass'
+  },
+  "3,1":{
+    name: 'grass'
+  },
+  "4,1":{
+    name: 'grass'
+  },
   "2,1":{
     name: 'tree'
   },
@@ -44,17 +55,35 @@ var world = {
     image: 'images/oak.png',
     use: function(){
       var chat = ['Why you must want to battle some pokemon yes?','Here have one of mine!'];
-      switchToChatControls(chat,switchToWorldControls);
+      switchToChatControls(chat,switchToPickerControls);
+      this.use = function(){
+        var chat = ['Try walking around in the tall grass'];
+        switchToChatControls(chat,switchToWorldControls);
+      };
     }
   }
 };
+
+function moveInGrass(){
+
+  var nextPos = (xpos+1) + ","+ypos;
+  if(world.hasOwnProperty(nextPos)){
+    if(world[nextPos].name == "grass"){
+      if(Math.random() > .5){
+        doBattle = true;
+      }
+      return true;
+    }
+  }
+  return false;
+}
 
 // moving map functions
 var moveworldright = function(){
 
   var nextPos = (xpos+1) + ","+ypos;
 
-  if(!world.hasOwnProperty(nextPos) && xpos+1 < 500){
+  if((moveInGrass() || !world.hasOwnProperty(nextPos)) && xpos+1 < 500){
     leftOffSet -= worldMoveDelta;
     xpos++;
     console.log('moving right :'+leftOffSet+ " : "+topOffSet);
@@ -68,6 +97,16 @@ var moveworldright = function(){
       "backgroundPositionY" : topOffSet
     }, transitionTime, 'linear',function() {
       moving = false;
+      if(doBattle){
+        var max = party[0].level+1;
+        var min = party[0].level-3;
+        var level = Math.floor(Math.random() * (max - min + 1)) + min;
+        max = 150;
+        min = 0;
+        var number = Math.floor(Math.random() * (max - min + 1)) + min;
+        startBattle(generatePokemon(number,level));
+        return;
+      }
 
       if(nextDirection != null){
         nextDirection();
@@ -96,7 +135,7 @@ var moveworldleft = function(){
 
   var nextPos = (xpos-1) + ","+ypos;
 
-  if(!world.hasOwnProperty(nextPos)  && xpos-1 >= 0){
+  if((moveInGrass() || !world.hasOwnProperty(nextPos))  && xpos-1 >= 0){
     leftOffSet += worldMoveDelta;
     xpos--;
     console.log('moving left :'+leftOffSet+ " : "+topOffSet);
@@ -112,7 +151,16 @@ var moveworldleft = function(){
     }, transitionTime,'linear' , function() {
 
       moving = false;
-
+      if(doBattle){
+        var max = party[0].level+1;
+        var min = party[0].level-3;
+        var level = Math.floor(Math.random() * (max - min + 1)) + min;
+        max = 150;
+        min = 0;
+        var number = Math.floor(Math.random() * (max - min + 1)) + min;
+        startBattle(generatePokemon(number,level));
+        return;
+      }
       if(nextDirection != null){
         nextDirection();
       }
@@ -138,7 +186,7 @@ var moveworldup = function(){
 
   var nextPos = xpos + ","+(ypos-1);
 
-  if(!world.hasOwnProperty(nextPos) && ypos-1 >= 0){
+  if((moveInGrass() || !world.hasOwnProperty(nextPos)) && ypos-1 >= 0){
     ypos--;
     topOffSet += worldMoveDelta;
 
@@ -153,7 +201,16 @@ var moveworldup = function(){
       "backgroundPositionY" : topOffSet
     }, transitionTime, 'linear',function() {
       moving = false;
-
+      if(doBattle){
+        var max = party[0].level+1;
+        var min = party[0].level-3;
+        var level = Math.floor(Math.random() * (max - min + 1)) + min;
+        max = 150;
+        min = 0;
+        var number = Math.floor(Math.random() * (max - min + 1)) + min;
+        startBattle(generatePokemon(number,level));
+        return;
+      }
       if(nextDirection != null){
         nextDirection();
       }
@@ -180,7 +237,7 @@ var moveworlddown = function(){
 
   var nextPos = xpos + ","+(ypos+1);
 
-  if(!world.hasOwnProperty(nextPos) && ypos+1 < 500){
+  if((moveInGrass() || !world.hasOwnProperty(nextPos)) && ypos+1 < 500){
     ypos++;
     topOffSet -= worldMoveDelta;
     console.log('moving down :'+leftOffSet+ " : "+topOffSet);
@@ -194,7 +251,16 @@ var moveworlddown = function(){
       "backgroundPositionY" : topOffSet
     }, transitionTime, 'linear',function() {
       moving = false;
-
+      if(doBattle){
+        var max = party[0].level+1;
+        var min = party[0].level-3;
+        var level = Math.floor(Math.random() * (max - min + 1)) + min;
+        max = 150;
+        min = 0;
+        var number = Math.floor(Math.random() * (max - min + 1)) + min;
+        startBattle(generatePokemon(number,level));
+        return;
+      }
       if(nextDirection != null){
         nextDirection();
       }

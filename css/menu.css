@@ -1,0 +1,31 @@
+.menu{
+  width: 200px;
+  border: thick solid;
+  position: relative;
+  left: 350px;
+  border-radius: 5px;
+  padding:20px;
+  background-color: white;
+}
+
+.menuItem{
+  list-style-type: none;
+  font-family:ArcadeClassic;
+  font-size: 22;
+}
+
+.menuList{
+  margin:0px;
+  padding-left:20px;
+}
+
+.selector{
+  border: thin solid;
+  width: 150px;
+  height: 30px;
+  position: absolute;
+  left:10px;
+  top: 20px;
+  border-radius: 5px;
+  background-color: rgba(102, 204, 255,.2);
+}

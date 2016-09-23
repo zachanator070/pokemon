@@ -48,6 +48,9 @@ var menuzDown = function(){
   if(menuIndex == 0){
     switchToPokedexControls();
   }
+  if(menuIndex == 1){
+    switchToPartyControls();
+  }
 };
 
 var menuxDown = function(){

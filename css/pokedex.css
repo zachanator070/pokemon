@@ -1,0 +1,58 @@
+
+#pokedexleft{
+  background-image: url(../images/pokedex_left.png);
+  width: 275px;
+  height: 550px;
+  z-index: 3;
+  position: absolute;
+  top: 0px;
+  left: 15px;
+  background-repeat: no-repeat;
+  background-size: 275px 550px;
+  transform: skew(10deg,10deg) rotate(10deg);
+}
+
+#pokedexright{
+  background-image: url(../images/pokedex_right.png);
+  width: 275px;
+  height: 539px;
+  z-index: 3;
+  position: absolute;
+  left: 294px;
+  top: 23px;
+  background-repeat: no-repeat;
+  background-size: 275px 520px;
+  transform: skew(170deg,170deg) rotate(-10deg);
+}
+
+#pokedexList{
+  list-style-image: url('../images/pokeball.png');
+    color: white;
+  font-family: ArcadeClassic;
+  top: 155px;
+  position: relative;
+  font-size: 22px;
+  left: 40px;
+}
+
+#pokedexselector{
+  width: 170px;
+  height: 25px;
+  border: thin solid white;
+  border-radius: 15px;
+  position: absolute;
+  top: 155px;
+  left: 50px;
+  z-index: 3;
+}
+
+#pokedexPic{
+  width: 154px;
+  height: 150px;
+  position: relative;
+  top: 170px;
+  left: 50px;
+  background-repeat:no-repeat;
+  background-size: cover;
+  background-siez: 154px 150px;
+}
