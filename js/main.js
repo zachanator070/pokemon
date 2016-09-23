@@ -205,7 +205,10 @@ function loadMoves(){
             newMove.power = data.power;
             newMove.accuracy = data.accuracy;
             if('damage_class' in Object.keys(data)){
-              newMove.class = data.damage_class.name;
+              newMove.damage_class = data.damage_class.name;
+            }
+            if(data.name == 'tackle'){
+              console.log(data);
             }
             newMove['type'] = data['type']['name'];
             moves[move.name] = newMove;
