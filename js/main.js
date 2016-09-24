@@ -191,9 +191,6 @@ function loadPokedexData(){
 
   Promise.all(promises).then(function(){
       preloadImages(urls);
-      if(localStorage.getItem('moves') == null){
-        loadMoves();
-      }
       localStorage.setItem('pokemon',JSON.stringify(pokemon));
     },
     function(){
@@ -209,7 +206,7 @@ function loadPokedexData(){
 
 function loadMoves(){
 
-  $.ajax('aws.thezachcave.com/pokemon/moves.json',{
+  $.ajax('moves.json',{
     success: function(data){
       moves = data;
       localStorage.setItem('moves',moves);
@@ -342,10 +339,11 @@ $(function() {
     $("#loadingText").text('Loading Pokedex...');
   }
   else{
-    if(moves == null){
-      loadMoves();
-    }
     pressStart();
+  }
+
+  if(moves == null){
+    loadMoves();
   }
 
   $("#loadingText").blink({delay:800});
