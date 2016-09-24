@@ -64,9 +64,8 @@ var world = {
   }
 };
 
-function moveInGrass(){
+function moveInGrass(nextPos){
 
-  var nextPos = (xpos+1) + ","+ypos;
   if(world.hasOwnProperty(nextPos)){
     if(world[nextPos].name == "grass"){
       if(Math.random() > .5){
@@ -83,7 +82,7 @@ var moveworldright = function(){
 
   var nextPos = (xpos+1) + ","+ypos;
 
-  if((moveInGrass() || !world.hasOwnProperty(nextPos)) && xpos+1 < 500){
+  if((moveInGrass(nextPos) || !world.hasOwnProperty(nextPos)) && xpos+1 < 500){
     leftOffSet -= worldMoveDelta;
     xpos++;
     console.log('moving right :'+leftOffSet+ " : "+topOffSet);
@@ -101,8 +100,8 @@ var moveworldright = function(){
         var max = party[0].level+1;
         var min = party[0].level-3;
         var level = Math.floor(Math.random() * (max - min + 1)) + min;
-        max = 150;
-        min = 0;
+        max = Object.keys(pokemon).length;
+        min = 1;
         var number = Math.floor(Math.random() * (max - min + 1)) + min;
         startBattle(generatePokemon(number,level));
         return;
@@ -135,7 +134,7 @@ var moveworldleft = function(){
 
   var nextPos = (xpos-1) + ","+ypos;
 
-  if((moveInGrass() || !world.hasOwnProperty(nextPos))  && xpos-1 >= 0){
+  if((moveInGrass(nextPos) || !world.hasOwnProperty(nextPos))  && xpos-1 >= 0){
     leftOffSet += worldMoveDelta;
     xpos--;
     console.log('moving left :'+leftOffSet+ " : "+topOffSet);
@@ -155,8 +154,8 @@ var moveworldleft = function(){
         var max = party[0].level+1;
         var min = party[0].level-3;
         var level = Math.floor(Math.random() * (max - min + 1)) + min;
-        max = 150;
-        min = 0;
+        max = Object.keys(pokemon).length;
+        min = 1;
         var number = Math.floor(Math.random() * (max - min + 1)) + min;
         startBattle(generatePokemon(number,level));
         return;
@@ -186,7 +185,7 @@ var moveworldup = function(){
 
   var nextPos = xpos + ","+(ypos-1);
 
-  if((moveInGrass() || !world.hasOwnProperty(nextPos)) && ypos-1 >= 0){
+  if((moveInGrass(nextPos) || !world.hasOwnProperty(nextPos)) && ypos-1 >= 0){
     ypos--;
     topOffSet += worldMoveDelta;
 
@@ -205,8 +204,8 @@ var moveworldup = function(){
         var max = party[0].level+1;
         var min = party[0].level-3;
         var level = Math.floor(Math.random() * (max - min + 1)) + min;
-        max = 150;
-        min = 0;
+        max = Object.keys(pokemon).length;
+        min = 1;
         var number = Math.floor(Math.random() * (max - min + 1)) + min;
         startBattle(generatePokemon(number,level));
         return;
@@ -237,7 +236,7 @@ var moveworlddown = function(){
 
   var nextPos = xpos + ","+(ypos+1);
 
-  if((moveInGrass() || !world.hasOwnProperty(nextPos)) && ypos+1 < 500){
+  if((moveInGrass(nextPos) || !world.hasOwnProperty(nextPos)) && ypos+1 < 500){
     ypos++;
     topOffSet -= worldMoveDelta;
     console.log('moving down :'+leftOffSet+ " : "+topOffSet);
@@ -255,8 +254,8 @@ var moveworlddown = function(){
         var max = party[0].level+1;
         var min = party[0].level-3;
         var level = Math.floor(Math.random() * (max - min + 1)) + min;
-        max = 150;
-        min = 0;
+        max = Object.keys(pokemon).length;
+        min = 1;
         var number = Math.floor(Math.random() * (max - min + 1)) + min;
         startBattle(generatePokemon(number,level));
         return;

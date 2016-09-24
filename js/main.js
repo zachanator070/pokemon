@@ -98,9 +98,6 @@ function preloadImages(array) {
 
 function pressStart(){
 
-  //$('#loadingImage').append("<img src='images/pikachu.gif' class='pikachu'/>");
-  //$("#loadingText").text('Loading Pokedex...');
-
   $("#loadingImage").remove();
   $("#loadingText").text("Press 'Z' to start");
   zdown = function(){
@@ -170,17 +167,27 @@ function loadPokedexData(){
     });
 
     promises.push(promise);
+    if(minReq.length <9){
+      minReq.push(promise)
+    }
   }
 
   Promise.all(promises).then(function(){
       preloadImages(urls);
-      loadMoves();
+      if(localStorage.getItem('moves') == null){
+        loadMoves();
+      }
       localStorage.setItem('pokemon',JSON.stringify(pokemon));
     },
     function(){
       console.log("images didn't load");
     }
   );
+
+  Promise.all(minReq).then(function(){
+    pressStart();
+  });
+
 }
 
 function loadMoves(){
@@ -202,7 +209,7 @@ function loadMoves(){
             }
             newMove.type = response.type.name;
             moves[move.name] = newMove;
-            console.log(response);
+            //console.log(response);
             console.log('loaded '+move.name);
           },
           error: function(response){
@@ -218,11 +225,11 @@ function loadMoves(){
   Promise.all(movePromises).then(function(){
     console.log(moves);
     localStorage.setItem('moves',JSON.stringify(moves));
-    pressStart();
+    //pressStart();
   });
 }
 
-var worldMusic = null;
+var worldMusic = new Audio('sounds/opening.mp3');
 
 function startWorldMusic(){
   worldMusic = new Audio('sounds/opening.mp3');

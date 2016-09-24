@@ -57,20 +57,11 @@ var pickerzDown = function(){
     party.push(generatePokemon(1,5));
   }
   else if(pickerIndex == 2){
-    party.push(generatePokemon(5,5));
-  }
-  else if(pickerIndex == 1){
     party.push(generatePokemon(7,5));
   }
-
-  // add some moves to the pokemon
-  var newMoves = [];
-  pokemon[party[0].number].moves.forEach(function(move){
-    if(newMoves.length < 4 && move.level < 5){
-      newMoves.push(Object.assign(move));
-    }
-  });
-  party[0].moves = newMoves;
+  else if(pickerIndex == 1){
+    party.push(generatePokemon(4,5));
+  }
 
   hidePicker();
 
