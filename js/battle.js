@@ -1,6 +1,6 @@
 var wildPokemon = null;
 var battleMusic = new Audio('sounds/battle.mp3');
-
+var victoryMusic = new Audio('sounds/success.mp3');
 var attackIndex = 0;
 
 function generatePokemon(num,level){
@@ -33,17 +33,25 @@ function generatePokemon(num,level){
   return bulbasaur;
 }
 
-function endBattle(){
+function endBattle(icon){
+  resetBindings();
 
   battleMusic.pause();
-  startWorldMusic();
-
-  $("#battle").fadeOut(1000,function(){
-    resetBindings();
-    party[0].hp = party[0].max_hp;
-    $("#battle").remove();
-    switchToWorldControls();
+  victoryMusic = new Audio('sounds/success.mp3');
+  victoryMusic.play();
+  $("#"+icon).animate({top:"-=50px"},1000,function(){
+    $("#"+icon).animate({'transform' : 'rotate(60deg)',"top":"+=50px"},1000,function(){
+      setTimeout(function(){
+        $("#battle").fadeOut(3000,function(){
+        victoryMusic.pause();
+        startWorldMusic();
+        party[0].hp = party[0].max_hp;
+        $("#battle").remove();
+        switchToWorldControls();
+      });},2000);
+    });
   });
+
 
 }
 
@@ -77,7 +85,7 @@ function doDamage(moveName, attacker,defender){
       }
       var damage = Math.floor(attacker.level/100 * move.power + bonus);
       if(damage < 0){
-        damage = 0
+        damage = 0;
       }
       defender.hp -= damage;
       if(defender.hp <0){
@@ -128,7 +136,7 @@ function attackTurn(move){
         setTimeout( function(){
           // if wild fainted, end battle
           if(wildPokemon.hp ==0){
-            endBattle();
+            endBattle("wildPokemonIcon");
             return;
           }
           // enemy pokemon attacks
@@ -167,7 +175,8 @@ function attackTurn(move){
               },attackTime,'linear',function(){
                 setTimeout(function(){
                   if(party[0].hp ==0){
-                    endBattle();
+                    endBattle("myPokemonIcon");
+                    return;
                   }
                   showAttacks();
                 },attackDelay);

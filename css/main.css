@@ -8,12 +8,20 @@ body{
   width:550px;
   background-image: url('../images/grid.png');
   background-size:250%;
-  background-position-x: 231px;
-  background-position-y: 246px;
+  background-position-x: 250px;
+  background-position-y: 250px;
   background-repeat: no-repeat;
   border: thin solid black;
   z-index:0;
   background-color: black;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top:50px;
+}
+
+.nopadding{
+  padding:0px;
 }
 
 #character{
@@ -34,6 +42,15 @@ body{
   z-index: 1;
   width: 550px;
   height: 550px;
+}
+
+#intro:focus{
+  outline: none;
+}
+
+#screen:focus{
+  outline: none;
+  margin-top: 50px;
 }
 
 #logo{
@@ -79,4 +96,28 @@ body{
   padding: 30px;
   border: thick solid black;
   border-radius: 10px;
+}
+
+#keys{
+  width:124px;
+  height:86px;
+  float:right;
+}
+.key{
+  width:50px;
+  height:50px;
+  float:right;
+}
+
+#howto{
+  width: 500px;
+  padding: 15px;
+  background: white;
+  font-family: ArcadeClassic;
+  font-size: 24px;
+  border: thick solid black;
+  border-radius: 20px;
+  margin-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
 }

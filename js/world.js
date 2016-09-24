@@ -6,8 +6,8 @@ var xpos = 0;
 var ypos = 0;
 
 // map offsets in pixels
-var leftOffSet = 231;
-var topOffSet = 246;
+var leftOffSet = 250;
+var topOffSet = 250;
 
 var moving = false;
 
@@ -89,7 +89,7 @@ var moveworldright = function(){
 
     moving = true;
     $('#character').css({
-      "background-image":"url('images/walking\ right.png')"
+      "background-image":"url('images/walking_right.gif')"
     });
     $( "#screen" ).animate({
       "backgroundPositionX" : leftOffSet,
@@ -97,6 +97,9 @@ var moveworldright = function(){
     }, transitionTime, 'linear',function() {
       moving = false;
       if(doBattle){
+        $('#character').css({
+          "background-image":"url('images/right.png')"
+        });
         var max = party[0].level+1;
         var min = party[0].level-3;
         var level = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -142,7 +145,7 @@ var moveworldleft = function(){
     moving = true;
 
     $('#character').css({
-      "background-image":"url('images/walking\ left.png')"
+      "background-image":"url('images/walking_left.gif')"
     });
     $( "#screen" ).animate({
       "backgroundPositionX" : leftOffSet,
@@ -151,6 +154,9 @@ var moveworldleft = function(){
 
       moving = false;
       if(doBattle){
+        $('#character').css({
+          "background-image":"url('images/left.png')"
+        });
         var max = party[0].level+1;
         var min = party[0].level-3;
         var level = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -193,7 +199,7 @@ var moveworldup = function(){
 
     moving = true;
     $('#character').css({
-      "background-image":"url('images/walking\ up.png')"
+      "background-image":"url('images/walking_up.gif')"
     });
     $( "#screen" ).animate({
       "backgroundPositionX" : leftOffSet,
@@ -201,6 +207,9 @@ var moveworldup = function(){
     }, transitionTime, 'linear',function() {
       moving = false;
       if(doBattle){
+        $('#character').css({
+          "background-image":"url('images/up.png')"
+        });
         var max = party[0].level+1;
         var min = party[0].level-3;
         var level = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -243,7 +252,7 @@ var moveworlddown = function(){
 
     moving = true;
     $('#character').css({
-      "background-image":"url('images/walking\ down.png')"
+      "background-image":"url('images/walking_down.gif')"
     });
     $( "#screen" ).animate({
       "backgroundPositionX" : leftOffSet,
@@ -251,6 +260,9 @@ var moveworlddown = function(){
     }, transitionTime, 'linear',function() {
       moving = false;
       if(doBattle){
+        $('#character').css({
+          "background-image":"url('images/down.png')"
+        });
         var max = party[0].level+1;
         var min = party[0].level-3;
         var level = Math.floor(Math.random() * (max - min + 1)) + min;

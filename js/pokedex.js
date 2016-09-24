@@ -107,6 +107,39 @@ var dexDownKey = function(){
 };
 
 var dexzDown = function(){
+  resetBindings();
+  var infoText = "<div id='flavorText'>";
+  infoText += "<img src='"+pokemon[pokedexIndex].sprites.front_default+"'/>"
+  infoText += "<p>Name:"+pokemon[pokedexIndex].name+"</p>";
+  infoText += "<p>Height:"+pokemon[pokedexIndex].height+"</p>";
+  infoText += "<p>Weight:"+pokemon[pokedexIndex].weight+"</p>";
+  infoText += "<p>Types:";
+  pokemon[pokedexIndex].types.forEach(function(type){
+    infoText += " "+type+" "
+  });
+  infoText += "</p>";
+  infoText += "<p>Description: "+pokemon[pokedexIndex].flavor_text+"</p>";
+  infoText += "</div>";
+
+  $("#pokedex").append(infoText);
+
+  zdown = function(){
+    resetBindings();
+    $("#flavorText").remove();
+    zdown = dexzDown;
+    xdown = dexxDown;
+    uparrowdown = dexUpKey;
+    downarrowdown = dexDownKey;
+  };
+
+  xdown = function(){
+    resetBindings();
+    $("#flavorText").remove();
+    zdown = dexzDown;
+    xdown = dexxDown;
+    uparrowdown = dexUpKey;
+    downarrowdown = dexDownKey;
+  };
 
 };
 

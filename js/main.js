@@ -153,13 +153,30 @@ function loadPokedexData(){
         some.moves = moves;
         some.types = [];
         data.types.forEach(function(slot){
-          some.types.push(slot.name);
+          some.types.push(slot.type.name);
         });
         some.height = data.height;
-        some.weight = some.weight;
-
+        some.weight = data.weight;
         pokemon[id] = some;
         console.log('Looked up '+data.name);
+        // lookup flavor text
+        $.ajax("http://pokeapi.co/api/v2/pokemon-species/"+id,{
+          success: function(info){
+            var text = "";
+            info.flavor_text_entries.forEach(function(entry){
+              if(entry.version.name == "firered" && entry.language.name == "en"){
+                text = entry.flavor_text;
+              }
+            });
+            if(text != ""){
+              pokemon[id].flavor_text = text;
+            }
+            console.log('got flavor text for '+id);
+          },
+          error: function(info){
+              console.log('unable to load species info '+id);
+          }
+        });
       },
       error: function(data,code){
         console.log("Error "+code+" requesting image url: "+data);
@@ -191,6 +208,17 @@ function loadPokedexData(){
 }
 
 function loadMoves(){
+
+  $.ajax('aws.thezachcave.com/pokemon/moves.json',{
+    success: function(data){
+      moves = data;
+      localStorage.setItem('moves',moves);
+    },
+    error: function(data){
+      console.log('error retrieving moves');
+    }
+  });
+  /*
   var movePromises = [];
   moves = {};
   for(var i =1; i<=150;i++){
@@ -209,7 +237,6 @@ function loadMoves(){
             }
             newMove.type = response.type.name;
             moves[move.name] = newMove;
-            //console.log(response);
             console.log('loaded '+move.name);
           },
           error: function(response){
@@ -227,6 +254,7 @@ function loadMoves(){
     localStorage.setItem('moves',JSON.stringify(moves));
     //pressStart();
   });
+  */
 }
 
 var worldMusic = new Audio('sounds/opening.mp3');
