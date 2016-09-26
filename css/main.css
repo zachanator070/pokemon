@@ -109,6 +109,12 @@ body{
   float:right;
 }
 
+.enter{
+  width:100px;
+  height:50px;
+  float:right;
+}
+
 #howto{
   width: 500px;
   padding: 15px;

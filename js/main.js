@@ -115,6 +115,7 @@ function pressStart(){
 function loadPokedexData(){
   var urls = [];
   var promises = [];
+  var speciesPromise = [];
   var minReq = [];
 
   pokemon = {};
@@ -160,7 +161,7 @@ function loadPokedexData(){
         pokemon[id] = some;
         console.log('Looked up '+data.name);
         // lookup flavor text
-        $.ajax("http://pokeapi.co/api/v2/pokemon-species/"+id,{
+        speciesPromise.push($.ajax("http://pokeapi.co/api/v2/pokemon-species/"+id,{
           success: function(info){
             var text = "";
             info.flavor_text_entries.forEach(function(entry){
@@ -176,7 +177,7 @@ function loadPokedexData(){
           error: function(info){
               console.log('unable to load species info '+id);
           }
-        });
+        }));
       },
       error: function(data,code){
         console.log("Error "+code+" requesting image url: "+data);
@@ -200,6 +201,10 @@ function loadPokedexData(){
 
   Promise.all(minReq).then(function(){
     pressStart();
+  });
+
+  Promise.all(speciesPromise).then(function(){
+    localStorage.setItem('pokemon',JSON.stringify(pokemon));
   });
 
 }
