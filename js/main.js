@@ -143,7 +143,7 @@ function loadPokedexData(){
           }
         });
         if(text != ""){
-          pokemon[id].flavor_text = text;
+          pokemon[i].flavor_text = text;
         }
         console.log('got flavor text for '+i);
       },
