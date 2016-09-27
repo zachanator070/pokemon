@@ -133,7 +133,7 @@ function loadPokedexData(){
 
   for(var i =1;i<=150;i++){
 
-    speciesPromise.push($.ajax("http://pokeapi.co/api/v2/pokemon-species/"+id,{
+    speciesPromise.push($.ajax("http://pokeapi.co/api/v2/pokemon-species/"+i,{
       crossDomain: true,
       success: function(info){
         var text = "";
@@ -145,10 +145,10 @@ function loadPokedexData(){
         if(text != ""){
           pokemon[id].flavor_text = text;
         }
-        console.log('got flavor text for '+id);
+        console.log('got flavor text for '+i);
       },
       error: function(info){
-          console.log('unable to load species info '+id);
+          console.log('unable to load species info '+i);
       }
     }));
 
