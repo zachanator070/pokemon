@@ -26,7 +26,7 @@ var doBattle = false;
 var visibleObjects = [];
 
 function moveInGrass(nextPos){
-
+  doBattle = false;
   if(world.hasOwnProperty(nextPos)){
     if(world[nextPos].name == "grass"){
       if(Math.random() > .5){
