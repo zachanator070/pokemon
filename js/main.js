@@ -121,8 +121,9 @@ function loadPokedexData(){
   pokemon = {};
 
   $.ajax("pokemon.json",{
-    success: function(){
-      localStorage.setItem('pokemon',JSON.stringify(pokemon));
+    success: function(data){
+      localStorage.setItem('pokemon',JSON.stringify(data));
+      pokemon = data;
       pressStart();
     }
   });
