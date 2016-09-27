@@ -130,9 +130,35 @@ function loadPokedexData(){
 
   loadMoves();
 
-  /*
+
   for(var i =1;i<=150;i++){
 
+    speciesPromise.push($.ajax("http://pokeapi.co/api/v2/pokemon-species/"+id,{
+      crossDomain: true,
+      success: function(info){
+        var text = "";
+        info.flavor_text_entries.forEach(function(entry){
+          if(entry.version.name == "firered" && entry.language.name == "en"){
+            text = entry.flavor_text;
+          }
+        });
+        if(text != ""){
+          pokemon[id].flavor_text = text;
+        }
+        console.log('got flavor text for '+id);
+      },
+      error: function(info){
+          console.log('unable to load species info '+id);
+      }
+    }));
+
+    Promise.all(speciesPromise).then(function(){
+      localStorage.setItem('pokemon',JSON.stringify(pokemon));
+    });
+
+  }
+
+    /*
     var promise = $.ajax("http://pokeapi.co/api/v2/pokemon/"+i,{
       crossDomain: true,
       success: function(data){
@@ -173,24 +199,7 @@ function loadPokedexData(){
         pokemon[id] = some;
         console.log('Looked up '+data.name);
         // lookup flavor text
-        speciesPromise.push($.ajax("http://pokeapi.co/api/v2/pokemon-species/"+id,{
-          crossDomain: true,
-          success: function(info){
-            var text = "";
-            info.flavor_text_entries.forEach(function(entry){
-              if(entry.version.name == "firered" && entry.language.name == "en"){
-                text = entry.flavor_text;
-              }
-            });
-            if(text != ""){
-              pokemon[id].flavor_text = text;
-            }
-            console.log('got flavor text for '+id);
-          },
-          error: function(info){
-              console.log('unable to load species info '+id);
-          }
-        }));
+
       },
       error: function(data,code){
         console.log("Error "+code+" requesting image url: "+data);
@@ -216,9 +225,7 @@ function loadPokedexData(){
     pressStart();
   });
 
-  Promise.all(speciesPromise).then(function(){
-    localStorage.setItem('pokemon',JSON.stringify(pokemon));
-  });*/
+  */
 
 }
 
