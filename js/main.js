@@ -125,38 +125,39 @@ function loadPokedexData(){
       localStorage.setItem('pokemon',JSON.stringify(data));
       pokemon = data;
       pressStart();
+      for(var i =1;i<=150;i++){
+
+        speciesPromise.push($.ajax("http://pokeapi.co/api/v2/pokemon-species/"+i,{
+          crossDomain: true,
+          success: function(info){
+            var text = "";
+            info.flavor_text_entries.forEach(function(entry){
+              if(entry.version.name == "firered" && entry.language.name == "en"){
+                text = entry.flavor_text;
+              }
+            });
+            if(text != ""){
+              pokemon[i].flavor_text = text;
+            }
+            console.log('got flavor text for '+i);
+          },
+          error: function(info){
+              console.log('unable to load species info '+i);
+          }
+        }));
+
+        Promise.all(speciesPromise).then(function(){
+          localStorage.setItem('pokemon',JSON.stringify(pokemon));
+        });
+
+      }
     }
   });
 
   loadMoves();
 
 
-  for(var i =1;i<=150;i++){
 
-    speciesPromise.push($.ajax("http://pokeapi.co/api/v2/pokemon-species/"+i,{
-      crossDomain: true,
-      success: function(info){
-        var text = "";
-        info.flavor_text_entries.forEach(function(entry){
-          if(entry.version.name == "firered" && entry.language.name == "en"){
-            text = entry.flavor_text;
-          }
-        });
-        if(text != ""){
-          pokemon[i].flavor_text = text;
-        }
-        console.log('got flavor text for '+i);
-      },
-      error: function(info){
-          console.log('unable to load species info '+i);
-      }
-    }));
-
-    Promise.all(speciesPromise).then(function(){
-      localStorage.setItem('pokemon',JSON.stringify(pokemon));
-    });
-
-  }
 
     /*
     var promise = $.ajax("http://pokeapi.co/api/v2/pokemon/"+i,{
