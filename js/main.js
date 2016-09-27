@@ -120,6 +120,16 @@ function loadPokedexData(){
 
   pokemon = {};
 
+  $.ajax("pokemon.json",{
+    success: function(){
+      localStorage.setItem('pokemon',JSON.stringify(pokemon));
+      pressStart();
+    }
+  });
+
+  loadMoves();
+
+  /*
   for(var i =1;i<=150;i++){
 
     var promise = $.ajax("http://pokeapi.co/api/v2/pokemon/"+i,{
@@ -207,7 +217,7 @@ function loadPokedexData(){
 
   Promise.all(speciesPromise).then(function(){
     localStorage.setItem('pokemon',JSON.stringify(pokemon));
-  });
+  });*/
 
 }
 
