@@ -2,17 +2,17 @@
 var objects = {};
 
 // global x/y position of the caracter
-var xpos = 0;
-var ypos = 0;
+var xpos = 1;
+var ypos = 7;
 
 // map offsets in pixels
-var leftOffSet = 250;
-var topOffSet = 250;
+var leftOffSet = 200;
+var topOffSet = -100;
 
 var moving = false;
 
 var transitionTime = 500;
-var worldMoveDelta = 55;
+var worldMoveDelta = 50;
 
 var intervalId;
 
@@ -24,45 +24,6 @@ var doBattle = false;
 
 // array of divs in the screen that need to be moved each key press
 var visibleObjects = [];
-
-var world = {
-  "3,0":{
-    name: 'grass'
-  },
-  "4,0":{
-    name: 'grass'
-  },
-  "3,1":{
-    name: 'grass'
-  },
-  "4,1":{
-    name: 'grass'
-  },
-  "2,1":{
-    name: 'tree'
-  },
-  "2,2":{
-    name: 'tree'
-  },
-  "1,2":{
-    name: 'tree'
-  },
-  "0,2":{
-    name:'tree'
-  },
-  "1,1":{
-    name: 'character',
-    image: 'images/oak.png',
-    use: function(){
-      var chat = ['Why you must want to battle some pokemon yes?','Here have one of mine!'];
-      switchToChatControls(chat,switchToPickerControls);
-      this.use = function(){
-        var chat = ['Try walking around in the tall grass'];
-        switchToChatControls(chat,switchToWorldControls);
-      };
-    }
-  }
-};
 
 function moveInGrass(nextPos){
 

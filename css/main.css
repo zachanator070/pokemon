@@ -6,10 +6,9 @@ body{
 #screen{
   height:550px;
   width:550px;
-  background-image: url('../images/grid.png');
-  background-size:250%;
-  background-position-x: 250px;
-  background-position-y: 250px;
+  background-image: url('../images/pokemon_grid.png');
+  background-position-x: 200px;
+  background-position-y: -100px;
   background-repeat: no-repeat;
   border: thin solid black;
   z-index:0;
