@@ -123,6 +123,7 @@ function loadPokedexData(){
   for(var i =1;i<=150;i++){
 
     var promise = $.ajax("http://pokeapi.co/api/v2/pokemon/"+i,{
+      crossDomain: true,
       success: function(data){
         urls.push(data.sprites.back_default);
         urls.push(data.sprites.front_default);
@@ -162,6 +163,7 @@ function loadPokedexData(){
         console.log('Looked up '+data.name);
         // lookup flavor text
         speciesPromise.push($.ajax("http://pokeapi.co/api/v2/pokemon-species/"+id,{
+          crossDomain: true,
           success: function(info){
             var text = "";
             info.flavor_text_entries.forEach(function(entry){
@@ -214,7 +216,7 @@ function loadMoves(){
   $.ajax('moves.json',{
     success: function(data){
       moves = data;
-      localStorage.setItem('moves',moves);
+      localStorage.setItem('moves',JSON.stringify(moves));
     },
     error: function(data){
       console.log('error retrieving moves');
